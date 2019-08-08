@@ -32,7 +32,7 @@ class EntryDetailViewController: UIViewController {
             break
         }
         
-        if let entry = entry {
+        if let entry = entry { // this is nil
             entryController?.update(entry: entry, title: title, bodyText: bodyText, mood: mood)
         } else {
             entryController?.createEntry(with: title, bodyText: bodyText, mood: mood)
@@ -42,13 +42,15 @@ class EntryDetailViewController: UIViewController {
     
     private func updateViews() {
         guard let entry = entry else {
-                title = "Create Entry"
+                title = "Create Entry" //checking title
                 return
         }
-        
+        // testing
         title = entry.title
-        titleTextField.text = entry.title
-        bodyTextView.text = entry.bodyText
+        
+        // can view detail view after changing it optional
+        titleTextField?.text = entry.title // first error
+        bodyTextView?.text = entry.bodyText
         
         var segmentIndex = 0
         
@@ -63,7 +65,7 @@ class EntryDetailViewController: UIViewController {
             break
         }
         
-        moodSegmentedControl.selectedSegmentIndex = segmentIndex
+        moodSegmentedControl?.selectedSegmentIndex = segmentIndex // changed mood segmented to optional
     }
     
     var entry: Entry? {

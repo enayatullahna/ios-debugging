@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-let baseURL = URL(string: "https://journal-syncing.firebaseio.com/")!
+let baseURL = URL(string: "https://journal-ef55cc.firebaseio.com/")! // using my own firebase url. I cannot access this one. //https://journal-syncing.firebaseio.com/
 
 class EntryController {
     
@@ -41,12 +41,16 @@ class EntryController {
         saveToPersistentStore()
     }
     
-    private func put(entry: Entry, completion: @escaping ((Error?) -> Void) = { _ in }) {
+    private func put(entry: Entry, completion: @escaping ((Error?) -> Void) = { _ in }) { // PUT is not working. not data is fetching to database
+        
         
         let identifier = entry.identifier ?? UUID().uuidString
-        let requestURL = baseURL.appendingPathComponent(identifier).appendingPathComponent("json")
-        var request = URLRequest(url: requestURL)
+        // debuging here
+        // to append pathextension
+        let requestURL = baseURL.appendingPathComponent(identifier).appendingPathExtension("json") // breaks po
+        var request = URLRequest(url: requestURL)// breaks po
         request.httpMethod = "PUT"
+        
         
         do {
             request.httpBody = try JSONEncoder().encode(entry)
